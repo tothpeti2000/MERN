@@ -5,19 +5,19 @@ const client = new MongoClient(DB_URI);
 
 let DB;
 
-const ConnectToServer = (callback) => {
-  client.connect((error, db) => {
-    if (db) {
-      DB = db.db("MERN");
-      console.log("Successfully connected to MongoDB");
-    }
+module.exports = {
+  ConnectToServer: (callback) => {
+    client.connect((error, db) => {
+      if (db) {
+        DB = db.db("MERN");
+        console.log("Successfully connected to MongoDB");
+      }
 
-    return callback(error);
-  });
+      return callback(error);
+    });
+  },
+
+  GetDB: () => {
+    return DB;
+  },
 };
-
-const GetDB = () => {
-  return DB;
-};
-
-export default { ConnectToServer, GetDB };
