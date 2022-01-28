@@ -1,5 +1,7 @@
+import { Flex } from "@chakra-ui/react";
+
 const EmployeeList = () => {
-  return <h1>Hello World!</h1>;
+  return <Flex></Flex>;
 };
 
 export default EmployeeList;
