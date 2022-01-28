@@ -1,22 +1,22 @@
 const express = require("express");
-const recordRoutes = express.Router();
+const router = express.Router();
 const dbo = require("../db/conn");
 
-// This help convert the id from string to ObjectId for the _id.
+// This helps to convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-recordRoutes.route("/").get((req, res) => {
+router.route("/").get((req, res) => {
   res.send("Hello World!");
 });
 
-// This section will help you get a list of all the records.
-recordRoutes.route("/records").get((req, res) => {
+// Get all employees
+router.route("/employees").get((req, res) => {
   const db = dbo.GetDB();
 
-  db.collection("records")
+  db.collection("employees")
     .find({})
-    .toArray((error, result) => {
-      if (error) {
+    .toArray((err, result) => {
+      if (err) {
         throw err;
       }
 
@@ -24,13 +24,13 @@ recordRoutes.route("/records").get((req, res) => {
     });
 });
 
-// This section will help you get a single record by id
-recordRoutes.route("/records/:id").get((req, res) => {
+// Get an employee by ID
+router.route("/employee/:id").get((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
-  db.collection("records").findOne(query, (error, result) => {
-    if (error) {
+  db.collection("employees").findOne(query, (err, result) => {
+    if (err) {
       throw err;
     }
 
@@ -38,8 +38,8 @@ recordRoutes.route("/records/:id").get((req, res) => {
   });
 });
 
-// This section will help you create a new record.
-recordRoutes.route("/records/add").post(function (req, res) {
+// Add a new employee
+router.route("/employees/add").post(function (req, res) {
   const db = dbo.GetDB();
 
   const employee = {
@@ -48,8 +48,8 @@ recordRoutes.route("/records/add").post(function (req, res) {
     level: req.body.level,
   };
 
-  db.collection("records").insertOne(employee, (error, result) => {
-    if (error) {
+  db.collection("employee").insertOne(employee, (err, result) => {
+    if (err) {
       throw err;
     }
 
@@ -57,8 +57,8 @@ recordRoutes.route("/records/add").post(function (req, res) {
   });
 });
 
-// This section will help you update a record by id.
-recordRoutes.route("/update/:id").post((req, res) => {
+// Update an employee
+router.route("/update/:id").post((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
@@ -70,8 +70,8 @@ recordRoutes.route("/update/:id").post((req, res) => {
     },
   };
 
-  db.collection("records").updateOne(query, newValues, (error, result) => {
-    if (error) {
+  db.collection("employees").updateOne(query, newValues, (err, result) => {
+    if (err) {
       throw err;
     }
 
@@ -80,13 +80,13 @@ recordRoutes.route("/update/:id").post((req, res) => {
   });
 });
 
-// This section will help you delete a record
-recordRoutes.route("/:id").delete((req, res) => {
+// Delete an employee
+router.route("/:id").delete((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
-  db.collection("records").deleteOne(query, (error, result) => {
-    if (error) {
+  db.collection("employee").deleteOne(query, (err, result) => {
+    if (err) {
       throw err;
     }
 
@@ -95,4 +95,4 @@ recordRoutes.route("/:id").delete((req, res) => {
   });
 });
 
-module.exports = recordRoutes;
+module.exports = router;

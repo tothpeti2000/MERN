@@ -10,15 +10,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const routes = require("./routes/record");
+const router = require("./routes/record");
 const dbo = require("./db/conn");
 
-app.use(routes);
+app.use(router);
 
 app.listen(PORT, () => {
-  dbo.ConnectToServer((error) => {
-    if (error) {
-      console.error(error);
+  dbo.ConnectToServer((err) => {
+    if (err) {
+      console.error(err);
     }
   });
 
