@@ -7,9 +7,9 @@ let DB;
 
 module.exports = {
   ConnectToServer: (callback) => {
-    client.connect((error, db) => {
-      if (db) {
-        DB = db.db("MERN");
+    client.connect((error, client) => {
+      if (client) {
+        DB = client.db("MERN");
         console.log("Successfully connected to MongoDB");
       }
 
