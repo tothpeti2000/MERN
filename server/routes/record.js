@@ -44,8 +44,8 @@ router.route("/employees/add").post(function (req, res) {
 
   const employee = {
     name: req.body.name,
+    age: req.body.age,
     position: req.body.position,
-    level: req.body.level,
   };
 
   db.collection("employee").insertOne(employee, (err, result) => {
@@ -65,8 +65,8 @@ router.route("/update/:id").post((req, res) => {
   const newValues = {
     $set: {
       name: req.body.name,
+      age: req.body.age,
       position: req.body.position,
-      level: req.body.level,
     },
   };
 
