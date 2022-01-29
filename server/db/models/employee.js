@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const EmployeeSchema = new Schema({
   name: String,
   age: Number,
-  position: string,
+  position: String,
 });
 
 module.exports = mongoose.model("Employee", EmployeeSchema);

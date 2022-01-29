@@ -13,8 +13,6 @@ router.route("/").get((req, res) => {
 router.route("/employees").get((req, res) => {
   const db = dbo.GetDB();
 
-  console.log(db);
-
   db.collection("employee")
     .find({})
     .toArray((err, result) => {
