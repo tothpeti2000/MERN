@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dbo = require("../db/conn");
+const Employee = require("../db/models/employee");
 
 // This helps to convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
@@ -11,17 +12,9 @@ router.route("/").get((req, res) => {
 
 // Get all employees
 router.route("/employees").get((req, res) => {
-  const db = dbo.GetDB();
-
-  db.collection("employees")
-    .find({})
-    .toArray((err, result) => {
-      if (err) {
-        throw err;
-      }
-
-      res.json(result);
-    });
+  Employee.find({})
+    .exec()
+    .then((employees) => res.json(employees));
 });
 
 // Get an employee by ID
