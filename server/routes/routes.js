@@ -13,7 +13,7 @@ router.route("/").get((req, res) => {
 router.route("/employees").get((req, res) => {
   const db = dbo.GetDB();
 
-  db.collection("employee")
+  db.collection("employees")
     .find({})
     .toArray((err, result) => {
       if (err) {
@@ -29,7 +29,7 @@ router.route("/employee/:id").get((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
-  db.collection("employee").findOne(query, (err, result) => {
+  db.collection("employees").findOne(query, (err, result) => {
     if (err) {
       throw err;
     }
@@ -48,7 +48,7 @@ router.route("/employees/add").post(function (req, res) {
     position: req.body.position,
   };
 
-  db.collection("employee").insertOne(employee, (err, result) => {
+  db.collection("employees").insertOne(employee, (err, result) => {
     if (err) {
       throw err;
     }
@@ -70,7 +70,7 @@ router.route("/update/:id").post((req, res) => {
     },
   };
 
-  db.collection("employee").updateOne(query, newValues, (err, result) => {
+  db.collection("employees").updateOne(query, newValues, (err, result) => {
     if (err) {
       throw err;
     }
@@ -85,7 +85,7 @@ router.route("/:id").delete((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
-  db.collection("employee").deleteOne(query, (err, result) => {
+  db.collection("employees").deleteOne(query, (err, result) => {
     if (err) {
       throw err;
     }
