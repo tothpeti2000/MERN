@@ -1,20 +1,16 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 const DB_URI = process.env.DB_URI;
-
-const client = new MongoClient(DB_URI);
 
 let DB;
 
 module.exports = {
-  ConnectToServer: (callback) => {
-    client.connect((error, client) => {
-      if (client) {
-        DB = client.db("MERN");
-        console.log("Successfully connected to MongoDB");
-      }
-
-      return callback(error);
+  ConnectToServer: () => {
+    mongoose.connect(DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
+
+    DB = mongoose.connection;
   },
 
   GetDB: () => {

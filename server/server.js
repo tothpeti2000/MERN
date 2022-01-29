@@ -16,11 +16,6 @@ const dbo = require("./db/conn");
 app.use(router);
 
 app.listen(PORT, () => {
-  dbo.ConnectToServer((err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-
+  dbo.ConnectToServer();
   console.log(`Server running at http://localhost:${PORT}`);
 });
