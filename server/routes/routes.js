@@ -33,20 +33,19 @@ router.route("/employee/:id").get((req, res) => {
 
 // Add a new employee
 router.route("/employees/add").post(function (req, res) {
-  const db = dbo.GetDB();
-
   const employee = {
     name: req.body.name,
     age: req.body.age,
     position: req.body.position,
   };
 
-  db.collection("employees").insertOne(employee, (err, result) => {
+  Employee.create(employee, (err, employee) => {
     if (err) {
-      throw err;
+      console.log("Couldn't add the given employee");
+      return;
     }
 
-    res.json(result);
+    res.json(employee);
   });
 });
 
