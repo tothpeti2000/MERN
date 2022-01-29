@@ -13,7 +13,9 @@ router.route("/").get((req, res) => {
 router.route("/employees").get((req, res) => {
   const db = dbo.GetDB();
 
-  db.collection("employees")
+  console.log(db);
+
+  db.collection("employee")
     .find({})
     .toArray((err, result) => {
       if (err) {
@@ -29,7 +31,7 @@ router.route("/employee/:id").get((req, res) => {
   const db = dbo.GetDB();
   const query = { _id: ObjectId(req.params.id) };
 
-  db.collection("employees").findOne(query, (err, result) => {
+  db.collection("employee").findOne(query, (err, result) => {
     if (err) {
       throw err;
     }
@@ -70,7 +72,7 @@ router.route("/update/:id").post((req, res) => {
     },
   };
 
-  db.collection("employees").updateOne(query, newValues, (err, result) => {
+  db.collection("employee").updateOne(query, newValues, (err, result) => {
     if (err) {
       throw err;
     }
