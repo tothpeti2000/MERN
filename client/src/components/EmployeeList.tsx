@@ -24,10 +24,15 @@ const EmployeeList = () => {
 
   return (
     <Flex w="100%" justifyContent="space-around" flexWrap="wrap">
-      {employees}
-      <EmployeeCard />
-      <EmployeeCard />
-      <EmployeeCard />
+      {employees.map((employee) => {
+        return (
+          <EmployeeCard
+            name={employee.name}
+            age={employee.age}
+            position={employee.position}
+          />
+        );
+      })}
     </Flex>
   );
 };
